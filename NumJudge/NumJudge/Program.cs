@@ -8,7 +8,7 @@ namespace ConsoleApp1
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            Console.Write("“请输入数字：”");
+            Console.Write("“请输入数字【如果为科学计数法请输入大写E】：”");
             string a = Console.ReadLine();
             if (IsNum(a))
             {
@@ -53,11 +53,11 @@ namespace ConsoleApp1
             Console.ReadLine();
         }
         /// <summary>
-        /// 
+        /// 非数字字符检索
         /// </summary>
-        /// <param name="str"></param>
-        /// <param name="sign"></param>
-        /// <returns></returns>
+        /// <param name="str">需要检索的字符串</param>
+        /// <param name="sign">需要被检索的字符</param>
+        /// <returns>特定字符的个数</returns>
         public static int Extext(string str, string sign)
         {
             if (str.Contains(sign))
@@ -72,8 +72,8 @@ namespace ConsoleApp1
         /// <summary>
         /// 判断是否全为数字
         /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
+        /// <param name="str">字符串</param>
+        /// <returns>true/false</returns>
         public static bool IsNum(string str)
         {
             for (int i = 0; i < str.Length; i++)
