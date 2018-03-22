@@ -17,36 +17,38 @@ namespace ConsoleApp1
             else
             {
                 //含有多个符号的字符串
-                if (Extext(a, "-") > 1 || Extext( a, ".") > 1 || Extext(a, "E") > 1 || a.IndexOf(".") == 0||a.IndexOf("E")==0)
+                if (Extext(a, "-") > 1 || Extext(a, ".") > 1 || Extext(a, "E") > 1 || a.IndexOf(".") == 0 || a.IndexOf("E") == 0)
                 {
                     Console.Write("无效十进制数目");
 
                 }
-                else {
+                else
+                {
                     if (a.IndexOf("-") == 0 && a.IndexOf(".") != 1)
                     {
                         Console.Write("负数");
                     }
                     //正科学计数法
-                    else if ((a.IndexOf("E") > 0 && a.IndexOf("+") == (a.IndexOf("E") + 1)&& a.IndexOf(".") != (a.IndexOf("E")+1) && a.IndexOf(".") != (a.IndexOf("E") -1) && a.IndexOf(".") != (a.IndexOf("+") - 1)&&a.IndexOf(".") != (a.IndexOf("+") +1)) || (a.IndexOf("E") > 0 && a.IndexOf("-") == (a.IndexOf("E") + 1)&&a.IndexOf(".") != (a.IndexOf("-") + 1) && a.IndexOf(".") != (a.IndexOf("-") - 1) && a.IndexOf(".") != (a.IndexOf("E") + 1) && a.IndexOf(".") != (a.IndexOf("E") - 1)))
+                    else if ((a.IndexOf("E") > 0 && a.IndexOf("+") == (a.IndexOf("E") + 1) && a.IndexOf(".") != (a.IndexOf("E") + 1) && a.IndexOf(".") != (a.IndexOf("E") - 1) && a.IndexOf(".") != (a.IndexOf("+") - 1) && a.IndexOf(".") != (a.IndexOf("+") + 1)) || (a.IndexOf("E") > 0 && a.IndexOf("-") == (a.IndexOf("E") + 1) && a.IndexOf(".") != (a.IndexOf("-") + 1) && a.IndexOf(".") != (a.IndexOf("-") - 1) && a.IndexOf(".") != (a.IndexOf("E") + 1) && a.IndexOf(".") != (a.IndexOf("E") - 1)))
                     {
                         Console.Write("科学计数法数字（正数）");
                     }
                     //负科学计数法
                     else if (Extext(a, "-") == 2 && a.IndexOf("E") > 0 && a.IndexOf("-", 1, 2) == (a.IndexOf("E") + 1))
-                        {
+                    {
                         Console.Write("科学计数法数字(负数)");
                     }
                     else if (a.IndexOf(".") > 0 && Extext(a, "-") == 0 && Extext(a, "E") == 0)
                     {
                         Console.Write("正小数");
                     }
-                    else {
+                    else
+                    {
                         Console.Write("非十进制数");
 
                     }
                 }
-                
+
             }
             Console.ReadLine();
         }
