@@ -4,3 +4,6 @@ F:\demo\cangchu\NumJudge\NumJudge\bin\Debug\NumJudge.pdb
 F:\demo\cangchu\NumJudge\NumJudge\obj\Debug\NumJudge.csprojResolveAssemblyReference.cache
 F:\demo\cangchu\NumJudge\NumJudge\obj\Debug\NumJudge.exe
 F:\demo\cangchu\NumJudge\NumJudge\obj\Debug\NumJudge.pdb
+E:\LeeTcode\NumJudge\NumJudge\bin\Debug\NumJudge.exe.config
+E:\LeeTcode\NumJudge\NumJudge\obj\Debug\NumJudge.exe
+E:\LeeTcode\NumJudge\NumJudge\obj\Debug\NumJudge.pdb

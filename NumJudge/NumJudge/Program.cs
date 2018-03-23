@@ -8,7 +8,7 @@ namespace ConsoleApp1
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            Console.Write("“请输入数字【如果为科学计数法请输入大写E】：”");
+            Console.Write("“请输入数字【如果为科学计数法请输入大写E1】：”");
             string a = Console.ReadLine();
             if (IsNum(a))
             {
