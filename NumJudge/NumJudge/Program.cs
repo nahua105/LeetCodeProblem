@@ -12,6 +12,7 @@ namespace ConsoleApp1
             string a = Console.ReadLine();
             if (IsNum(a))
             {
+                //需要修改的纯数字判断
                 Console.Write("是纯数字");
             }
             else
