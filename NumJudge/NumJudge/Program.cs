@@ -83,5 +83,10 @@ namespace ConsoleApp1
             }
             return true;
         }
+
+        public static bool Isvalueful(string Str)
+        {
+            return true;
+        }
     }
 }
