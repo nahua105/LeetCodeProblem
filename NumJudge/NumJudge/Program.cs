@@ -87,21 +87,22 @@ namespace ConsoleApp1
         /// <summary>
         /// 判定数字(不含有E/e)
         /// </summary>
-        /// <param name="Str"></param>
+        /// <param name="Str">需要检索的字符串（做过一次筛选）</param>
         /// <returns></returns>
         public static string Isvalueful(string Str)
         {
-            //负号
+            //负号flag
             bool min_flag = false;
+            //科学计数法flag
             bool scl_flag = false;
-            ///小数点符号
+            //小数点flag
             bool point_flag = false;
+            //第一位为0flag
             bool first_zero_flag = false;
-            int num_flag = 0;
+            //0位个数
             int zero_flag = 0;
             for (int i = 0; i < Str.Length; i++)
             {
-
                 if (Str[i] == '-')
                 {
                     //下一位
@@ -110,7 +111,6 @@ namespace ConsoleApp1
                         continue;
                     }
                     else {
-
                         return "-号后面不是数字的非数字";
                     }
                 }
@@ -119,7 +119,7 @@ namespace ConsoleApp1
                 {
                     
                     first_zero_flag = true;
-                    if (Str[i + 1] == '.')
+                    if (Str[i + 1] == '.'|| point_flag)
                     {
                         
                         continue;
@@ -128,10 +128,10 @@ namespace ConsoleApp1
                         return "第一位为0且后一位不是小数点的非数字";
                     }
                 }
-
-                if (Str[Str.Length] == 0)
+                ///末置位判断(小数)
+                if (Str[Str.Length] == 0|| min_flag==true)
                 {
-                    return "末置位为0的小数";
+                    return "末置位为0的非数字（非整数）";
                 }
             }
 
