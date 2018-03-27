@@ -84,10 +84,58 @@ namespace ConsoleApp1
             }
             return true;
         }
-
-        public static bool Isvalueful(string Str)
+        /// <summary>
+        /// 判定数字(不含有E/e)
+        /// </summary>
+        /// <param name="Str"></param>
+        /// <returns></returns>
+        public static string Isvalueful(string Str)
         {
-            return true;
+            //负号
+            bool min_flag = false;
+            bool scl_flag = false;
+            ///小数点符号
+            bool point_flag = false;
+            bool first_zero_flag = false;
+            int num_flag = 0;
+            int zero_flag = 0;
+            for (int i = 0; i < Str.Length; i++)
+            {
+
+                if (Str[i] == '-')
+                {
+                    //下一位
+                    if (Str[i + 1] > '0' || Str[i + 1] < '9')
+                    {
+                        continue;
+                    }
+                    else {
+
+                        return "-号后面不是数字的非数字";
+                    }
+                }
+                ///第一位判断
+                if (Str[0] == 0)
+                {
+                    
+                    first_zero_flag = true;
+                    if (Str[i + 1] == '.')
+                    {
+                        
+                        continue;
+                    }
+                    else {
+                        return "第一位为0且后一位不是小数点的非数字";
+                    }
+                }
+
+                if (Str[Str.Length] == 0)
+                {
+                    return "末置位为0的小数";
+                }
+            }
+
+            return "";
         }
     }
 }
