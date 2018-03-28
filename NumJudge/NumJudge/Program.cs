@@ -206,6 +206,10 @@ namespace ConsoleApp1
                     return flag;
                 }
             }
+            if (Str.IndexOf('E') == -1)
+            {
+                return flag=true;
+            }
             return flag;
         }
 
