@@ -10,3 +10,6 @@ E:\LeeTcode\NumJudge\NumJudge\obj\Debug\NumJudge.pdb
 E:\LeeTcode\LeetCodeProblem\NumJudge\NumJudge\bin\Debug\NumJudge.exe.config
 E:\LeeTcode\LeetCodeProblem\NumJudge\NumJudge\obj\Debug\NumJudge.exe
 E:\LeeTcode\LeetCodeProblem\NumJudge\NumJudge\obj\Debug\NumJudge.pdb
+E:\LeeTcode\LeetCodeProblem\NumJudge\NumJudge\bin\Debug\NumJudge.exe
+E:\LeeTcode\LeetCodeProblem\NumJudge\NumJudge\bin\Debug\NumJudge.pdb
+E:\LeeTcode\LeetCodeProblem\NumJudge\NumJudge\obj\Debug\NumJudge.csprojResolveAssemblyReference.cache
