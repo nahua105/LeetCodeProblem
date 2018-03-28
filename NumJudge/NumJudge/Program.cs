@@ -14,15 +14,16 @@ namespace ConsoleApp1
             if (IsNum(a))
             {
 
-                if (a.Length > 0 && a[0] != '0') { Console.Write("有效数字");  }
-                if (a.Length > 0&& a[0] =='0') { Console.Write("无效数字（纯数字方法出）"); }
+                if (a.Length > 0 && a[0] != '0') { Console.Write("有效数字"); }
+                if (a.Length > 0 && a[0] == '0') { Console.Write("无效数字（纯数字方法出）"); }
             }
             else
             {
                 //含有多个符号的字符串
-                if (Extext(a, "-") > 2 || Extext(a, ".") > 1 || Extext(a, "E") > 1 || a.IndexOf(".") == 0 || a.IndexOf("E") == 0)
-                {Console.Write("无效十进制数目");}
-                else {
+                if (Extext(a, "-") > 2 || Extext(a, ".") > 1 || Extext(a, "E") > 1 || a.IndexOf(".") == 0 || a.IndexOf("E") == 0|| OtherStr(a))
+                { Console.Write("无效十进制数目"); }
+                else
+                {
                     //区分科学计数法和非科学计数法
                     if (Extext(a, "E") == 0)
                     {
@@ -38,7 +39,7 @@ namespace ConsoleApp1
                         }
                         else if (Extext(a, "-") == 1)
                         {
-                          var  result = NumCheck(a);
+                            var result = NumCheck(a);
                             if (result)
                             { Console.Write("有效数字(负数方法出)"); Console.ReadLine(); }
                             else
@@ -46,17 +47,18 @@ namespace ConsoleApp1
                         }
                     }
                     else if (Extext(a, "E") == 1)
-                    {var result = SclCheck(a);
+                    {
+                        var result = SclCheck(a);
                         if (result)
-                        {Console.Write("有效数字(科学计数法出)"); Console.ReadLine(); }
+                        { Console.Write("有效数字(科学计数法出)"); Console.ReadLine(); }
                         else
                         { Console.Write("无效数字(科学计数法出)"); Console.ReadLine(); }
 
                     }
                 }
-                
+
             }
-           
+
             Console.ReadLine();
         }
         /// <summary>
@@ -77,7 +79,7 @@ namespace ConsoleApp1
         }
 
         /// <summary>
-        /// 判断是否全为数字（第一位不为0）
+        /// 判断是否全为数字
         /// </summary>
         /// <param name="str">字符串</param>
         /// <returns>true/false</returns>
@@ -106,8 +108,6 @@ namespace ConsoleApp1
             return true;
         }
 
-
-
         /// <summary>
         /// 小数判断
         /// </summary>
@@ -115,29 +115,32 @@ namespace ConsoleApp1
         /// <returns></returns>
         public static bool SnumCheck(string Str)
         {
-            //先将字符串由不同字符串分隔开
+            //先将字符串由小数点分隔开
             string[] Sarray = Str.Split('.');
             var HeadInfo = Sarray[0];
             bool HeadFlag = false;
             bool EndFlag = false;
-
-            if (HeadInfo[0] == '-'&&HeadInfo.Length>1  )
+            //前半部分第一位为负号
+            if (HeadInfo[0] == '-' && HeadInfo.Length > 1)
             {
+                //负号后一位为0只能有两位[加上负号 ：0.]
                 if (HeadInfo[1] == '0' && HeadInfo.Length == 2) { HeadFlag = true; }
+                //第一位不为0,且为数字
                 if (HeadInfo[1] > '0' && HeadInfo[1] < '9') { HeadFlag = true; }
             }
+            //第一位为0且只能有一位
             if (HeadInfo[0] == '0' && HeadInfo.Length == 1)
             {
                 HeadFlag = true;
             }
-            else if ((HeadInfo[0]>'0'|| HeadInfo[0]<'9')&& HeadInfo[0]!='-') { HeadFlag = true; }
-            
+            else if ((HeadInfo[0] > '0' && HeadInfo[0] <= '9') && HeadInfo[0] != '-') { HeadFlag = true; }
+
             var EndInfo = Sarray[1];
             if (HeadInfo.Length < 1 || EndInfo.Length < 1)
             {
                 return false;
             }
-            
+
             if (EndInfo[EndInfo.Length - 1] != '0')
             {
                 EndFlag = true;
@@ -160,9 +163,13 @@ namespace ConsoleApp1
             var HeadSclInfo = Sarray[0];
             bool HeadFlag = false;
 
+            //判断前半部分【E分割开的前部分】
             if (Extext(HeadSclInfo, ".") == 1)
             {
-                HeadFlag = SnumCheck(HeadSclInfo);
+                ///科学记数法E前面的数要大于1小于10
+                if (IsNum(HeadSclInfo) && float.Parse(HeadSclInfo) < 10 && float.Parse(HeadSclInfo) > 1)
+                { HeadFlag = SnumCheck(HeadSclInfo); }
+                else { HeadFlag = false; }
             }
             else if (HeadSclInfo[0] != '0' && HeadSclInfo.Length == 1)
             {
@@ -182,8 +189,25 @@ namespace ConsoleApp1
             else { return false; }
         }
 
-       
-
+        /// <summary>
+        /// 判断字符串是否含有其他字符
+        /// </summary>
+        /// <param name="Str"></param>
+        /// <returns></returns>
+        public static bool OtherStr(string Str)
+        {
+            var flag = false;
+            for (int i = 0; i < Str.Length; i++)
+            {
+                if ((Str[i] < '0' || Str[i] > '9') && Str[i] != '+')
+                {
+                    ///说明有其他字符
+                    flag = true;
+                    return flag;
+                }
+            }
+            return flag;
+        }
 
         /// <summary>
         /// 判定数字(不含有E/e)【弃用】
@@ -208,11 +232,7 @@ namespace ConsoleApp1
             for (int i = 0; i < Str.Length; i++)
             {
                 //判断其他字符
-                if ((Str[i] < '0' || Str[i] > '9') && Str[i] != '-' && Str[i] != '.')
-                {
-                    ///说明有其他字符
-                    other_flag = true;
-                }
+
 
                 if (Str[i] == '-')
                 {

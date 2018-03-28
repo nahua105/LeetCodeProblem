@@ -13,3 +13,10 @@ E:\LeeTcode\LeetCodeProblem\NumJudge\NumJudge\obj\Debug\NumJudge.pdb
 E:\LeeTcode\LeetCodeProblem\NumJudge\NumJudge\bin\Debug\NumJudge.exe
 E:\LeeTcode\LeetCodeProblem\NumJudge\NumJudge\bin\Debug\NumJudge.pdb
 E:\LeeTcode\LeetCodeProblem\NumJudge\NumJudge\obj\Debug\NumJudge.csprojResolveAssemblyReference.cache
+R:\LeeTcode\LeetCodeProblem\NumJudge\NumJudge\bin\Debug\NumJudge.exe.config
+R:\LeeTcode\LeetCodeProblem\NumJudge\NumJudge\bin\Debug\NumJudge.exe
+R:\LeeTcode\LeetCodeProblem\NumJudge\NumJudge\bin\Debug\NumJudge.pdb
+R:\LeeTcode\LeetCodeProblem\NumJudge\NumJudge\obj\Debug\NumJudge.csprojResolveAssemblyReference.cache
+R:\LeeTcode\LeetCodeProblem\NumJudge\NumJudge\obj\Debug\NumJudge.csproj.CoreCompileInputs.cache
+R:\LeeTcode\LeetCodeProblem\NumJudge\NumJudge\obj\Debug\NumJudge.exe
+R:\LeeTcode\LeetCodeProblem\NumJudge\NumJudge\obj\Debug\NumJudge.pdb
