@@ -1,0 +1,40 @@
+ static void Main(string[] args)
+        {
+            Console.Write("请输入字符串：");
+
+            string Str = Console.ReadLine();
+            //去掉汉字
+            Str = Regex.Replace(Str, @"[\u4e00-\u9fa5]", "");
+
+            //去重
+            char[] CharStr = Str.ToArray().Distinct().ToArray();
+            string Strs = string.Join("", CharStr);
+            char[] nums=new Char[10];
+            char[] letter = new Char[20];
+            //排序
+            int aflag = 0;
+            int bflag = 0;
+
+            for (int i = 0; i < Strs.Length; i++)
+            {
+                //如果为数字
+                if (Strs[i] >= '0' && Strs[i] <= '9')
+                {
+                    //如果为数字 则放在容器A中
+                    nums[aflag] = Strs[i];
+                    aflag++;
+                }
+                else {
+                    //如果为其他字符 则放在容器A中
+                    letter[bflag] = Strs[i];
+                    bflag++;
+                }
+            }
+            string snums= string.Join("", nums);
+            snums=snums.Trim('\0');
+            string bnums = string.Join("", letter);
+            bnums=bnums.Trim('\0');
+            var a = snums + bnums;
+            Console.Write(a);
+            Console.ReadLine();
+        }
