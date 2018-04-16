@@ -1,0 +1,96 @@
+假设有一个数组，它的第 i 个元素是一个给定的股票在第 i 天的价格。
+
+设计一个算法来找到最大的利润。你可以完成尽可能多的交易（多次买卖股票）。然而，你不能同时参与多个交易（你必须在再次购买前出售股票）。
+public class Solution {
+    public int MaxProfit(int[] prices) {
+        if(prices.Length<=1||prices==null){
+            return 0;
+        } 
+        var global = 0;
+        var localMin = prices[0];
+        
+        for(int i=0;i<prices.Length;i++)
+        {
+            var local = prices[i] - localMin;
+            if(local<0)
+            {
+                 localMin = Math.Min(localMin, prices[i]);
+            }
+            else{
+                 global += prices[i] - localMin;
+                localMin = prices[i];       
+            }
+           
+        }
+         return global;
+    }
+}
+189.旋转数组
+
+将包含 n 个元素的数组向右旋转 k 步。
+
+例如，如果  n = 7 ,  k = 3，给定数组  [1,2,3,4,5,6,7]  ，向右旋转后的结果为 [5,6,7,1,2,3,4]。
+
+public class Solution {
+    public void Rotate(int[] nums, int k) {
+        k = k%nums.Length;
+        Reverse(nums, 0, nums.Length-1);
+        Reverse(nums, 0, k-1);
+        Reverse(nums, k, nums.Length-1);
+    }
+    ///翻转方法
+       private void Reverse(int[] array, int first, int last)
+    {
+        var i = first;
+        var j = last;
+        while (i < j)
+        {
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+            i++;
+            j--;
+        }
+    }
+}
+
+
+217. 存在重复 
+给定一个整数数组，判断是否存在重复元素。
+如果任何值在数组中出现至少两次，函数应该返回 true。如果每个元素都不相同，则返回 false。
+public class Solution {
+    public bool ContainsDuplicate(int[] nums) {
+        if(nums.Length<=1) {return false;}
+        for(int i=0;i<nums.Length-1;i++)
+        {
+            for(int j=i+1;j<nums.Length;j++)
+            {
+                if(nums[i]==nums[j]){  
+                      return true;
+                 }
+            }
+        }
+         return false;
+    }
+}
+
+66.加一
+给定一个非负整数组成的非空数组，给整数加一。
+
+可以假设整数不包含任何前导零，除了数字0本身。
+
+最高位数字存放在列表的首位。
+public class Solution {
+    public int[] PlusOne(int[] digits) {
+        int i=digits.Length-1;
+        for(;i>=0;i--)
+        {
+             digits[i]=digits[i]+1;
+            if(digits[i]==10) digits[i]=0;
+             else return digits;
+        }
+         int [] result=new int[digits.Length+1];
+        result[0]=1;
+        return result;
+    }
+}
