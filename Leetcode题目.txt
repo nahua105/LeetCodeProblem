@@ -1,0 +1,461 @@
+算法题库：
+https://leetcode.com/problemset/all/
+
+1.题目描述：
+    
+        宝石/石头 题目
+    你会得到J代表珠宝石头类型的字符串，并S代表你拥有的宝石。每个角色S都是你拥有的一种石头。你想知道你有多少宝石也是宝石。
+在这些信件J是保证不同，而在所有的字符J和S是字母。字母区分大小写，因此"a"被认为是不同类型的石头"A"。
+
+
+c#解法：
+public class Solution {
+    public int NumJewelsInStones(string J, string S) {
+        
+        int result = 0;
+        J.ToList().ForEach(x => { result += S.Count(s => s == x); });
+        return result;
+    }
+}
+
+--------------------------------------------------------------------------------
+2.题目描述：
+
+Input: [1, 2, 2, 3, 1]
+Output: 2
+Explanation:
+The input array has a degree of 2 because both elements 1 and 2 appear twice.
+Of the subarrays that have the same degree:
+[1, 2, 2, 3, 1], [1, 2, 2, 3], [2, 2, 3, 1], [1, 2, 2], [2, 2, 3], [2, 2]
+The shortest length is 2. So return 2.
+
+python：
+class Solution(object):
+    def findShortestSubArray(self, nums):
+        left, right, count = {}, {}, {}
+        for i, x in enumerate(nums):
+            if x not in left: left[x] = i
+            right[x] = i
+            count[x] = count.get(x, 0) + 1
+        ans = len(nums)
+        degree = max(count.values())
+        for x in count:
+            if count[x] == degree:
+                ans = min(ans, right[x] - left[x] + 1)
+        return ans
+--------------------------------------------------------------------------------
+
+3.题目描述 转换大小，完成将 toChineseNum， 可以将数字转换成中文大写的表示，处理到万级别，例如 toChineseNum(12345)，返回 一万二千三百四十五。
+
+
+const toChineseNum = (num) => {
+  if (num === 0) {
+return '零';
+}
+const bit = ['', '十', '百', '千'];
+const unit = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+const section = ['', '万'];
+let sectionPos = 0;
+let resultStr = '';
+let piece, needZero = false;
+function toCNum(n) {
+    let bitPos = 0, rs = '', zeroNum = 0;
+    while (n > 0) {
+        let curNum = n % 10;
+        if (curNum === 0) {
+            zeroNum++;
+            bitPos++;
+        } else {
+            if (bitPos === zeroNum)
+                zeroNum = 0;
+            else if (zeroNum > 0) {
+                rs = '零' + rs;
+                zeroNum = 0;
+            }
+            rs = unit[curNum] + bit[bitPos++] + rs;
+        }
+        n = Math.floor(n / 10);
+    }
+    return rs;
+}
+while (num > 0) {
+    piece = num % 10000;
+    resultStr = toCNum(piece) + section[sectionPos] + (needZero ? '零' : '') + resultStr;
+    needZero = piece < 1000 && piece > 0;
+    sectionPos++;
+    num = Math.floor(num / 10000);
+}
+return resultStr;
+}
+
+--------------------------------------------------------------------------------
+
+算法题目3：两数目之和：
+class Solution {
+  public int[] twoSum(int[] nums, int target) {
+    for (int i = 0; i < nums.length; i++) {
+        for (int j = i + 1; j < nums.length; j++) {
+            if (nums[j] == target - nums[i]) {
+                return new int[] { i, j };
+            }
+        }
+    }
+    throw new IllegalArgumentException("No two sum solution");
+}
+}
+
+
+
+
+LeetCode 26题
+给定一个有序数组，你需要原地删除其中的重复内容，使每个元素只出现一次,并返回新的长度。
+不要另外定义一个数组，您必须通过用 O(1) 额外内存原地修改输入的数组来做到这一点。
+示例：
+给定数组: nums = [1,1,2],
+
+你的函数应该返回新长度 2, 并且原数组nums的前两个元素必须是1和2
+不需要理会新的数组长度后面的元素
+ 解题思路：public class Solution {
+     public int RemoveDuplicates(int[] nums)
+    {
+        int fillIndex = 0;
+        for (int i = 0; i < nums.Length; i++)
+        {
+            if (i == 0)
+            {
+                fillIndex++;
+                continue;
+            }
+            if (nums[i] != nums[i - 1])
+            {
+                nums[fillIndex] = nums[i];
+                fillIndex++;
+            }
+        }
+        return fillIndex;
+    }
+}
+
+LeetCode 27题
+给定一个数组和一个值，在这个数组中原地移除指定值和返回移除后新的数组长度。
+不要为其他数组分配额外空间，你必须使用 O(1) 的额外内存原地修改这个输入数组。
+元素的顺序可以改变。超过返回的新的数组长度以外的数据无论是什么都没关系。
+示例:
+给定 nums = [3,2,2,3]，val = 3，
+
+你的函数应该返回 长度 = 2，数组的前两个元素是 2。
+
+
+public class Solution {
+    public int RemoveElement(int[] nums, int val) {
+     int flag =0;
+     for (int i=0;i<nums.Length;i++) {
+         if(nums[i]!=val)
+         {
+             nums[flag]=nums[i];
+             flag++;
+         }
+     }
+        return flag;  
+    }
+}
+
+LeetCode 387题目
+给定一个字符串，找到它的第一个不重复的字符，并返回它的索引。如果不存在，则返回 -1。
+案例:
+s = "leetcode"
+返回 0.
+
+s = "loveleetcode",
+返回 2.
+
+ 
+注意事项：您可以假定该字符串只包含小写字母。
+
+最优解：
+public class Solution {
+    public int FirstUniqChar(string s) {
+            int[] store = new int[256];
+            for (int i = 0; i < s.Length; i++)
+            {
+                char a = s[i];
+                store[a] += 1;
+            }
+            for (int i = 0; i < s.Length; i++)
+            {
+                if(store[s[i]] == 1)
+                {
+                    return i;
+                }
+            }
+            return -1;
+    }
+}
+
+我的解决方法：
+public class Solution {
+    public int FirstUniqChar(string s) {
+    if(s.Length == 0 || s == null)
+        return -1;
+
+    Dictionary<char, int> dict = new Dictionary<char, int>();
+    int result = int.MaxValue;
+
+    for (int i = 0; i < s.Length; i++)
+    {
+        if (dict.ContainsKey(s[i]))
+        {
+            dict[s[i]] = -1;
+        }
+
+        else
+        {
+            dict.Add(s[i], i+1);
+        }
+    }
+
+    for (int i = 0; i < s.Length; i++)
+    {
+        int val = 0;
+        if (dict.TryGetValue(s[i], out val) == true)
+        {
+            if (val == -1)
+            {
+                continue;
+            }
+            else if (val > 0)
+            {
+                result = Math.Min(result, val - 1);
+            }
+        }
+    }
+
+    return (result >= 0 && result != int.MaxValue)? result : -1;
+}
+}
+
+ 有效的字母异位词
+给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的一个字母异位词。
+示例 1:
+输入: s = "anagram", t = "nagaram"
+输出: true
+
+示例 2:
+输入: s = "rat", t = "car"
+输出: false
+说明:
+你可以假设字符串只包含小写字母。
+进阶:
+如果输入字符串包含 unicode 字符怎么办？你能否调整你的解法来应对这种情况？
+
+简单方法：
+c#
+public class Solution {
+    public bool IsAnagram(string s, string t) {
+      return String.Concat(s.OrderBy(c => c)) == String.Concat(t.OrderBy(c => c));
+    }
+}
+    
+
+LeeTcode 125. 验证回文串
+给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
+说明：本题中，我们将空字符串定义为有效的回文串。
+示例 1:
+输入: "A man, a plan, a canal: Panama"
+输出: true
+
+示例 2:
+输入: "race a car"
+输出: false
+
+用时最少的解法：
+    public class Solution
+    {
+
+        public bool IsPalindrome(string s)
+        {
+            if (s == null) return false;
+
+            s = s.ToLower();
+            int p1 = 0;
+            int p2 = s.Length - 1;
+            while (p1 <= p2)
+            {
+                if (s[p1] == s[p2])
+                {
+                    p1++;
+                    p2--;
+                    continue;
+                }
+
+                if (((s[p1] >= 'a' && s[p1] <= 'z') || (s[p1] >= '0' && s[p1] <= '9')) && ((s[p2] >= 'a' && s[p2] <= 'z') || (s[p2] >= '0' && s[p2] <= '9')))
+                    return false;
+
+
+                if (!((s[p1] >= 'a' && s[p1] <= 'z')||(s[p1] >= '0' && s[p1] <= '9')))
+                    p1++;
+                if (!((s[p2] >= 'a' && s[p2] <= 'z')|| (s[p2] >= '0' && s[p2] <= '9')))
+                    p2--;
+
+            }
+            return true;
+        }
+
+    }
+
+我的解法：
+public class Solution {
+    public bool IsPalindrome(string s) {
+        
+     if(s.Length==0){return true;}
+          s= s.ToLower();
+         int start=0;  
+         int end=s.Length-1;  
+        while(start<end)
+        {
+        while(start<end&&!IsCharOrNumber(s[start]))  
+            start++;  
+        while(start<end&&!IsCharOrNumber(s[end]))  
+            end--;  
+        if(start<end && s[start]!= s[end])  
+            return false;  
+        start++;  
+        end--;  
+        }
+          return true;  
+    }
+   
+
+    bool IsCharOrNumber(char s){  
+        if((s>='a'&&s<='z')||(s>='0'&&s<='9'))  
+            return true;  
+        return false;  
+    }  
+    }
+
+
+8. 字符串转整数 (atoi)
+
+实现 atoi，将字符串转为整数。
+在找到第一个非空字符之前，需要移除掉字符串中的空格字符。如果第一个非空字符是正号或负号，选取该符号，并将其与后面尽可能多的连续的数字组合起来，这部分字符即为整数的值。如果第一个非空字符是数字，则直接将其与之后连续的数字字符组合起来，形成整数。
+字符串可以在形成整数的字符后面包括多余的字符，这些字符可以被忽略，它们对于函数没有影响。
+当字符串中的第一个非空字符序列不是个有效的整数；或字符串为空；或字符串仅包含空白字符时，则不进行转换。
+若函数不能执行有效的转换，返回 0。
+说明：
+假设我们的环境只能存储 32 位有符号整数，其数值范围是 [?231,  231 ? 1]。如果数值超过可表示的范围，则返回  INT_MAX (231 ? 1) 或 INT_MIN (?231) 。
+示例 1:
+输入: "42"
+输出: 42
+
+示例 2:
+输入: "   -42"
+输出: -42
+解释: 第一个非空白字符为 '-', 它是一个负号。
+     我们尽可能将负号与后面所有连续出现的数字组合起来，最后得到 -42 。
+
+示例 3:
+输入: "4193 with words"
+输出: 4193
+解释: 转换截止于数字 '3' ，因为它的下一个字符不为数字。
+
+示例 4:
+输入: "words and 987"
+输出: 0
+解释: 第一个非空字符是 'w', 但它不是数字或正、负号。
+     因此无法执行有效的转换。
+示例 5:
+输入: "-91283472332"
+输出: -2147483648
+解释: 数字 "-91283472332" 超过 32 位有符号整数范围。 
+     因此返回 INT_MIN (?231) 。
+
+
+解法：
+public class Solution
+{
+    public int MyAtoi(string str)
+    {
+        str = str.TrimStart();
+
+        if (str == String.Empty || !(Char.IsDigit(str[0]) || str[0] == '+' || str[0] == '-'))
+        {
+            return 0;
+        }
+
+        string s = String.Empty;
+
+        for (int i = 0; i < str.Length; i++)
+        {
+            s = s + str[i];
+
+            if (i + 1 < str.Length && !Char.IsDigit(str[i + 1]))
+            {
+                break;
+            }
+        }
+
+        if (s == "+" || s == "-")
+        {
+            return 0;
+        }
+
+        int r = 0;
+
+        if (Int32.TryParse(s, out r))
+        {
+            return r;
+        }
+        else if (!s.Contains('-'))
+        {
+            return Int32.MaxValue;
+        }
+        else
+        {
+            return Int32.MinValue;
+        }
+    }
+}
+
+我的解法：
+public class Solution {
+    public int MyAtoi(string str)
+        {
+            if (str.Length == 0) { return 0; }
+            str = str.Replace(" ", "");
+            if (IsCharOrNumber(str[0])) { return 0; }
+            else
+            {
+                int a = 0;
+                if (Int32.TryParse(str.ToString(), out a))
+                {return a;}
+                else
+                {
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < str.Length; i++)
+                    {
+                        if (!IsCharOrNumber(str[i])) { sb.Append(str[i]); }
+                        else { }
+                    }
+                    int outnum = 0;
+                    if (Int32.TryParse(sb.ToString(), out outnum))
+                    { return outnum; }
+                    else
+                    {
+                        var num = float.Parse(sb.ToString());
+                        if (num > int.MaxValue)
+
+                        { return int.MaxValue; }
+                        else if (num < int.MinValue)
+                        { return int.MinValue; }
+
+                        else { return 0; }
+                    }
+                }
+            }
+            bool IsCharOrNumber(char s)
+            {
+                if ((s >= 'a' && s <= 'z') || (s >= 'A' && s <= 'Z')) return true;
+                return false;
+            }
+        }
+}
