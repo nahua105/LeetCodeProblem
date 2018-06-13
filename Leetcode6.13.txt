@@ -1,0 +1,81 @@
+LeetCode 38. 数数并说
+2018年03月31日 11:37:02
+阅读数：465
+题目描述： 数数并说
+        数数并说序列是一个整数序列，第二项起每一项的值为对前一项的计数，其前五项如下：
+1.     1
+2.     11
+3.     21
+4.     1211
+5.     111221
+
+1 被读作 "一个一" 即 11。
+11 被读作  "两个一" 即 21。
+21 被读作  "一个二 和 一个一" 即 1211。
+给一个正整数 n ，输出数数并说序列的第 n 项。
+注意：该整数序列的每项都输出为字符串。
+例 1:
+输入: 1
+输出: "1"
+
+ 
+例 2:
+输入: 4
+输出: "1211"
+解题思路：
+        判断有几个连续的数。
+
+解题方法：（c++方法。学习其中的含义）
+class Solution {  
+public:  
+    string countAndSay(int n) {  
+        string s1 = "1", s2 ="";  
+        while(--n) {  
+            for(int i = 0 ; i < s1.size() ; i ++) {  
+                for(int j = 0 ; ; j++) {  
+                    if(i+j<s1.size()&&s1[i+j] == s1[i+j+1]) continue;  
+                    j ++;  
+                    s2 = s2 + to_string(j) +s1[i];  
+                    i = i + j-1;  
+                    break;  
+                }  
+            }  
+            s1 = s2;  
+            s2 = "";  
+        }  
+        return s1;  
+    }  
+}; 
+
+--------------------------------------------------------------------------------
+实现strStr()
+实现 strStr() 函数。
+给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。
+示例 1:
+输入: haystack = "hello", needle = "ll"
+输出: 2
+
+示例 2:
+输入: haystack = "aaaaa", needle = "bba"
+输出: -1
+
+说明:
+当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。
+对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。
+
+解题方法：
+public class Solution {
+    public int StrStr(string haystack, string needle) {
+        if(haystack.Length!=0&&needle.Length==0)
+        {
+            return 0;
+        }
+        if(haystack.Length==0&&needle.Length==0)
+        {
+            return 0;
+        }
+//利用c#的indexof函数获取
+        var  index= haystack.IndexOf(needle);
+        return index;
+    }
+}
