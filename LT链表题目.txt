@@ -1,0 +1,147 @@
+回文链表
+请判断一个链表是否为回文链表。
+示例 1:
+输入: 1->2
+输出: false
+示例 2:
+输入: 1->2->2->1
+输出: true
+
+进阶：
+你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？
+我的解法：
+public class Solution {
+    public bool IsPalindrome(ListNode head) {
+       if(head == null || head.next == null) { return true; }
+        ListNode last = null;
+        return IsPalindrome(head, head.next.next, out last);  
+    }
+    private bool IsPalindrome(ListNode slo, ListNode fst, out ListNode last)
+    {
+    if(fst != null && fst.next != null)
+    {
+        //if recursion returned false at any check then overall result is false   
+        if(!IsPalindrome(slo.next, fst.next.next, out last)) { return false; }
+    }
+    else if(fst == null)
+    {
+        //for even length case
+        last = slo.next;
+    }
+    else
+    {
+        //for odd  length case
+        //fst.next == null
+        last = slo.next.next;
+    }
+    
+    if(slo.val == last.val) { last = last.next; return true; }
+    //No need to update the last pointer in case of failed check because we skip remaining checks
+    return false;
+}
+}
+最优解：
+public class Solution {
+    public bool IsPalindrome(ListNode head) {
+        List<int> ls = new List<int>();
+        while(head!=null)
+        {
+            ls.Add(head.val);
+            head = head.next;            
+        }
+        for(int i=0; i< ls.Count;i++)
+        {
+            if(ls[i] != ls[ls.Count-1-i])
+            {
+                return false;                
+            }
+        }
+        return true;
+    }
+}
+
+
+--------------------------------------------------------------------------------
+
+
+LeeTcode19题.删除链表的倒数第N个节点
+给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
+示例：
+给定一个链表: 1->2->3->4->5, 和 n = 2.
+
+当删除了倒数第二个节点后，链表变为 1->2->3->5.
+
+说明：
+给定的 n 保证是有效的。
+进阶：
+你能尝试使用一趟扫描实现吗？
+
+我的解法：
+public class Solution {
+    public ListNode RemoveNthFromEnd(ListNode head, int n) {
+        ListNode handle = new ListNode(0) {next = head};
+        ListNode preTarget, target, tail;
+        preTarget = handle;
+        tail = handle;
+        for (int i = 0; i <= n; i++) tail = tail.next;
+        while (tail != null) {
+            preTarget = preTarget.next;
+            tail = tail.next;
+        }
+        target = preTarget.next;
+        preTarget.next = target.next;
+        return handle.next;        
+    }
+}
+
+耗时最少的解法：
+public class Solution {
+    public ListNode RemoveNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode first = dummy;
+        ListNode second = dummy;
+        for (int i = 1; i <= n + 1; i++)
+            first = first.next;
+        while (first != null)
+        {
+            first = first.next;
+            second = second.next;
+        }
+        second.next = second.next.next;
+        return dummy.next;
+    }
+}
+
+--------------------------------------------------------------------------------
+反转链表
+反转一个单链表。
+示例:
+输入: 1->2->3->4->5->NULL
+输出: 5->4->3->2->1->NULL
+进阶:
+你可以迭代或递归地反转链表。你能否用两种方法解决这道题？
+
+
+我的解法【递归 调用本体】：
+public class Solution {
+    public ListNode ReverseList(ListNode head) {
+         if (head == null || head.next == null)
+        {
+            return head;
+        }
+        ListNode newHead = ReverseList(head.next);
+        head.next.next = head;
+        head.next = null;
+        return newHead;
+    }
+}
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+ 
